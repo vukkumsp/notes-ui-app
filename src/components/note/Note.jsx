@@ -1,12 +1,14 @@
 import './Note.css'
 
-function Note({id, content}) {
-
+function Note({key, note}) {
+// {id, title, content, createdAt, updatedAt}
   return (
     <>
-    <fieldset>
-        <legend>ID: {id}</legend>
-        <p>{content}</p>
+    <fieldset key={key} className="note">
+        <legend>{note.title}</legend>
+        <small>created: {note.createdAt}</small> 
+            {note.updatedAt && <small> | updated: {note.updatedAt}</small>}
+        <p>{note.content}</p>
     </fieldset>
     </>
   )

@@ -26,7 +26,7 @@ function App() {
         <h3>Response : </h3>{test?
          
           test.map((note, index) => (
-            <Note key={index} id={note.id} content={note.content} />
+            <Note key={index} note={note} />
           ))
         
         : <h3>Loading...</h3>}
