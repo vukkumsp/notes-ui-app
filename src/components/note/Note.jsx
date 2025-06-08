@@ -4,7 +4,10 @@ function Note({id, content}) {
 
   return (
     <>
-    <p>{id} - {content}</p>
+    <fieldset>
+        <legend>ID: {id}</legend>
+        <p>{content}</p>
+    </fieldset>
     </>
   )
 }
