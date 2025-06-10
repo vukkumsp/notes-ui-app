@@ -44,17 +44,15 @@ function App() {
     <>
       <Header />
       <div className="container">
-        <h2>Welcome to the Notes App</h2>
-        <p>Token: {token ? token: ''}</p>
-        <h3>Response : </h3>{test?
+        {test?
          
           test.map((note, index) => (
-            <Note key={index} note={note} />
+            <div className="note-container" key={index}>
+              <Note key={index} note={note} />
+            </div>
           ))
         
         : <h3>Loading...</h3>}
-        <p>This is a simple application to manage your notes.</p>
-        <p>Feel free to add, edit, and delete notes as you wish.</p>
         
         </div>
       <Footer />
