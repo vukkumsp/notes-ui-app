@@ -47,4 +47,4 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
       - name: Deploy to Github Pages
-        run: gh-pages --dist dist --repo="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/vukkumsp/notes-ui-app.git" --no-silent
+        run: gh-pages --dist dist --repo="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/vukkumsp/notes-ui-app.git"
