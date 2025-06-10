@@ -19,14 +19,19 @@ function App() {
         setToken(response.token);
       })
       .catch(error => console.error("Error fetching guest token:", error));
-
-    getNotes()
+    
+    setTimeout(() => {
+      console.log("Fetching notes...");
+          getNotes()
       .then(response => {
         setTest(response);
         console.log(response);
       })
       .catch(error => console.error(error));
-
+    }
+    , 1000);
+    // Fetch notes after getting the token
+    // This assumes that the token is stored in localStorage after fetching it
   }, []);
 
   return (
