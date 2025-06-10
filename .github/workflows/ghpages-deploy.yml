@@ -35,8 +35,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4  # Checkout repository in the deployment job
-      - name: Install angular-cli-ghpages
-        run: npm install -g angular-cli-ghpages
+      - name: Install gh-pages
+        run: npm install -g gh-pages
       - name: Download ./dist folder from previous job
         uses: actions/download-artifact@v4
         with:
