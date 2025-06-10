@@ -2,7 +2,24 @@
 import { NOTES_API_URL } from './RESTAPI';
 
 export async function getNotes() {
-  const response = await fetch(NOTES_API_URL);
+  const token = localStorage.getItem("guestToken");
+  if (!token) {
+    throw new Error('No guest token found');
+  }
+  // Fetch notes from the API
+  // You might want to include the token in the headers if required by your API
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  };
+  // Fetch notes from the API 
+  const response = await fetch(NOTES_API_URL, { 
+    method: 'GET',
+    mode: 'cors', // Uncomment if you need CORS support
+    credentials: 'include', // Include credentials if needed
+    headers : headers
+  });
+  // const response = await fetch(NOTES_API_URL);
   
   if (!response.ok) {
     throw new Error('Network error');
