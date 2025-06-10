@@ -10,19 +10,16 @@ import { getCookie, setCookie } from './services/cookieManagement';
 
 function App() {
   const [test, setTest] = useState([]);
-  const [token, setToken] = useState("");
 
   useEffect(() => {
     const token = getCookie("guestToken");
     if (token !== null && token !== "") {
-      setToken(token);
       console.log("Token from cookie: ", token);
     } else {
       console.log("No token found in cookies, fetching new guest token...");
       getGuestToken()
         .then(response => {
           console.log("Guest Token: ", response);
-          setToken(response.token);
           setCookie("guestToken", response.token, response.duration-10);
         })
         .catch(error => console.error("Error fetching guest token:", error));
