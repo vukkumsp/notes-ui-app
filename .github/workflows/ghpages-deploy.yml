@@ -23,7 +23,7 @@ jobs:
           npm install -g @angular/cli
       - name: Build for prod
         run: |
-          npm run build
+          npm run build && cp CNAME dist
       - name: Upload dist folder as artifact
         uses: actions/upload-artifact@v4
         with:
