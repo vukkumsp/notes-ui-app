@@ -10,7 +10,7 @@ jobs:
     steps:
       - run: echo "Started NPM Build Job"
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Checking NodeJs & NPM Versions
         run: |
           echo "Node Version check"
@@ -25,7 +25,7 @@ jobs:
         run: |
           npm run build
       - name: Upload dist folder as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist-files
           path: ./dist
@@ -34,11 +34,11 @@ jobs:
     needs: npm-build
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Checkout repository in the deployment job
+        uses: actions/checkout@v4  # Checkout repository in the deployment job
       - name: Install angular-cli-ghpages
         run: npm install -g angular-cli-ghpages
       - name: Download ./dist folder from previous job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist-files
           path: ./dist
