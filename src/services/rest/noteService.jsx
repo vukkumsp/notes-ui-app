@@ -1,8 +1,9 @@
 // services/rest/noteService.js
+import { getCookie } from '../cookieManagement';
 import { NOTES_API_URL } from './RESTAPI';
 
 export async function getNotes() {
-  const token = localStorage.getItem("guestToken");
+  const token = getCookie("guestToken");
   if (!token) {
     throw new Error('No guest token found');
   }
