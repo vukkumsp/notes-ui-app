@@ -1,4 +1,10 @@
-# React + Vite
+# Notes UI App
+
+[![NPM Build Deploy](https://github.com/vukkumsp/notes-ui-app/actions/workflows/ghpages-deploy.yml/badge.svg)](https://github.com/vukkumsp/notes-ui-app/actions/workflows/ghpages-deploy.yml)
+
+Deployed at: https://notes.vukkumsp.com/
+
+## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
