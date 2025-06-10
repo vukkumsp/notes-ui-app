@@ -15,7 +15,7 @@ function App() {
     getGuestToken()
       .then(response => {
         console.log("Guest Token: ", response);
-        localStorage.setItem("guestToken", response.token);
+   
         setToken(response.token);
       })
       .catch(error => console.error("Error fetching guest token:", error));
