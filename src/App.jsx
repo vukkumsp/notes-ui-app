@@ -7,52 +7,13 @@ import Note from './components/note/Note';
 import { getNotes } from './services/rest/noteService';
 import { getGuestToken } from './services/rest/authService';
 import { getCookie, setCookie } from './services/cookieManagement';
+import HomeView from './views/home-view/HomeView';
 
 function App() {
-  const [test, setTest] = useState([]);
-
-  useEffect(() => {
-    const token = getCookie("guestToken");
-    if (token !== null && token !== "") {
-      console.log("Token from cookie: ", token);
-    } else {
-      console.log("No token found in cookies, fetching new guest token...");
-      getGuestToken()
-        .then(response => {
-          console.log("Guest Token: ", response);
-          setCookie("guestToken", response.token, response.duration-10);
-        })
-        .catch(error => console.error("Error fetching guest token:", error));
-    }
-    //-------------------------------------------//
-    setTimeout(() => {
-      console.log("Fetching notes...");
-          getNotes()
-      .then(response => {
-        setTest(response);
-        console.log(response);
-      })
-      .catch(error => console.error(error));
-    }
-    , 1000);
-    }, []);
 
   return (
     <>
-      <Header />
-      <div className="container">
-        {test?
-         
-          test.map((note, index) => (
-            <div className="note-container" key={index}>
-              <Note key={index} note={note} />
-            </div>
-          ))
-        
-        : <h3>Loading...</h3>}
-        
-        </div>
-      <Footer />
+      <HomeView />
     </>
   )
 }
