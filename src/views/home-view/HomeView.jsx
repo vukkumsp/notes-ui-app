@@ -6,10 +6,12 @@ import { useEffect, useState } from 'react';
 import { getNotes } from '../../services/rest/noteService';
 import { getGuestToken } from '../../services/rest/authService';
 import { getCookie, setCookie } from '../../services/cookieManagement';
+import { useNavigate } from 'react-router-dom';
 
 
 function HomeView() {
-  const [test, setTest] = useState([]);
+  const [noteList, setNoteList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = getCookie("guestToken");
@@ -29,7 +31,7 @@ function HomeView() {
       console.log("Fetching notes...");
           getNotes()
       .then(response => {
-        setTest(response);
+        setNoteList(response);
         console.log(response);
       })
       .catch(error => console.error(error));
@@ -41,11 +43,16 @@ function HomeView() {
     <>
       <Header />
       <div className="container">
-        {test?
-         
-          test.map((note, index) => (
+        {noteList?
+          noteList.map((note, index) => (
             <div className="note-container" key={index}>
-              <Note key={index} note={note} />
+              <Note key={index} note={note} 
+                onClick={() => {
+                  console.log("Navigating to note with id: ", note.id);
+                  navigate('/note/' + note.id, { replace: true });
+                }}
+              />
+              
             </div>
           ))
         

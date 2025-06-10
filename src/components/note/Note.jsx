@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import './Note.css'
 
 function Note({ key, note }) {
+  const navigate = useNavigate();
   // {id, title, content, createdAt, updatedAt}
   return (
     <>
@@ -14,6 +16,16 @@ function Note({ key, note }) {
           | updated: {note.updatedAt}
         </small>}
         <p>{note.content}</p>
+
+        <button className="note-button" onClick={() => {
+          console.log("Navigating to note with id: ", note.id);
+          navigate('/notes/' + note.id, { replace: true });
+        }}>SELECT</button>
+
+        <button className="back-button" onClick={() => {
+          console.log("Navigating to back to notes list");
+          navigate('/', { replace: true });
+        }}>HOME</button>
       </fieldset>
     </>
   )
