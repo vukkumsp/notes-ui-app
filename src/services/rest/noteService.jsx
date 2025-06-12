@@ -83,3 +83,32 @@ export async function addOrUpdateNote(note, method) {
 
   return response.json();
 }
+
+export async function deleteNotes(id) {
+  const token = getCookie("loginToken");
+  if (!token) {
+    throw new Error('No login token found');
+  }
+  // Fetch notes from the API
+  // You might want to include the token in the headers if required by your API
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  };
+  // Fetch notes from the API 
+  const response = await fetch(NOTES_API_URL+'/'+id, { 
+    method: 'DELETE',
+    mode: 'cors', // Uncomment if you need CORS support
+    credentials: 'include', // Include credentials if needed
+    headers : headers
+  });
+  // const response = await fetch(NOTES_API_URL);
+
+  console.log("Delete Note Response: ", response);
+  
+  if (!response.ok) {
+    throw new Error('Network error');
+  }
+
+  return response.json();
+}

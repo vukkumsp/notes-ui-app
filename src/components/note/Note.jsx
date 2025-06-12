@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Note.css'
-import { useEffect, useState } from 'react';
-import { addOrUpdateNote } from '../../services/rest/noteService';
+import { useEffect, useRef, useState } from 'react';
+import { addOrUpdateNote, deleteNotes } from '../../services/rest/noteService';
 
 function Note({ key, note, mode= 'view' }) {
   // mode can be 'view' or 'edit' or 'add'
@@ -11,6 +11,8 @@ function Note({ key, note, mode= 'view' }) {
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(note.title);
   const [content, setContent] = useState(note.content);
+
+  const fieldsetRef = useRef(null);
 
   useEffect(() => {
     if (mode === 'add') {
@@ -42,10 +44,18 @@ function Note({ key, note, mode= 'view' }) {
     setEditMode(false);
   }
 
+  const deleteNote = () => {
+    console.log("Deleting note with id: ", note.id);
+    deleteNotes(note.id); //DELETE the note
+    fieldsetRef.current.innerHTML = '<legend>DELETED</legend><p>This note is deleted</p>';
+    console.log("Note deleted:", note.id);
+
+  }
+
   // {id, title, content, createdAt, updatedAt}
   return (
     <>
-      <fieldset key={key} className="note">
+      <fieldset key={key} className="note" ref={fieldsetRef}>
 
         {!editMode &&
         <legend>{note.title}</legend> }
@@ -67,6 +77,10 @@ function Note({ key, note, mode= 'view' }) {
 
         { editMode &&   
         <textarea className="note-content" rows="10" cols="100" value={content} onChange={(e)=>setContent(e.target.value)} readOnly={!editMode}></textarea> }
+
+        <button className="note-button" onClick={() => {
+            deleteNote()
+          }}>Delete</button>
 
         {location.pathname !== '/notes/' + note.id &&
           <button className="note-button" onClick={() => {
