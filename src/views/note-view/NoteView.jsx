@@ -31,23 +31,39 @@ function NoteView() {
           })
           .catch(error => console.error("Error fetching guest token:", error));
       }
-      //-------------------------------------------//
-      setTimeout(() => {
-        console.log("Fetching note with id "+id+" ...");
-            getNote(id)
-        .then(response => {
-          setNote(response);
-          console.log(response);
-        })
-        .catch(error => console.error(error));
+
+      if(id==='add'){
+        console.log("Note id is 'add', redirecting to create new note...");
+        setNote({
+          id: null,
+          title: "New Note",
+          content: "This is a new note. Please edit it.",
+          createdAt: new Date().toISOString(),
+          updatedAt: ""
+        });
       }
-      , 1000);
+      else {
+        setTimeout(() => {
+          console.log("Fetching note with id "+id+" ...");
+              getNote(id)
+          .then(response => {
+            setNote(response);
+            console.log(response);
+          })
+          .catch(error => console.error(error));
+        }
+        , 1000);
+      }
+
       }, []);
 
   return (
     <>
         <Header />
-        <Note key={id} note={note} />
+        { id === 'add' ?
+          <Note key={id} note={note} mode='add'/>:
+          <Note key={id} note={note} />  
+        }
         <Footer />
     </>
   )

@@ -1,12 +1,9 @@
 import { use, useEffect, useState } from 'react';
 import { getCookie, setCookie } from '../../services/cookieManagement'
-import { getLoginToken } from '../../services/rest/authService';
-import { postNotes } from '../../services/rest/noteService';
 import './Header.css'
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function Header() {
-  const [postResponse, setPostResponse] = useState(null);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation()
@@ -32,6 +29,12 @@ function Header() {
     // navigate('/login');
   }
 
+  const add = () => {
+    console.log("Add button clicked");
+    // Logic for adding a new note or user
+    navigate('/notes/add');
+  }
+
   return (
     <>
       <a className='header' href='/' rel='noopener noreferrer'>
@@ -51,6 +54,8 @@ function Header() {
         <button onClick={()=>navigate('/login')}>Login</button> }
       {user === "admin" && 
         <button onClick={()=>logout()}>Logout</button>  }
+      {user === "admin" && 
+        <button onClick={()=>add()}>Add</button>  }
     </>
   )
 }

@@ -56,7 +56,7 @@ export async function getNote(id) {
   return response.json();
 }
 
-export async function postNotes() {
+export async function addOrUpdateNote(note, method) {
   const token = getCookie("loginToken");
   if (!token) {
     throw new Error('No login token found');
@@ -69,10 +69,11 @@ export async function postNotes() {
   };
   // Fetch notes from the API 
   const response = await fetch(NOTES_API_URL, { 
-    method: 'POST',
+    method: method,
     mode: 'cors', // Uncomment if you need CORS support
     credentials: 'include', // Include credentials if needed
-    headers : headers
+    headers : headers,
+    body: JSON.stringify(note)
   });
   // const response = await fetch(NOTES_API_URL);
   
