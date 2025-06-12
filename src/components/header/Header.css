@@ -18,3 +18,8 @@
 .subdomain {
   font-size: 4em;
 }
+
+button {
+    margin-left: 1em;
+    margin-right: 1em;
+}

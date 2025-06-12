@@ -7,10 +7,11 @@ export const LOCAL_BASE_URL = 'http://localhost:8080';
 export const BASE_URLS = [DEPLOYED_BASE_URL, LOCAL_BASE_URL];
 
 // Uncomment the line below to use the local base URL instead of the production one
-export const BASE_URL = BASE_URLS[0];
+export const BASE_URL = BASE_URLS[1];
 
 export const API_BASE_URL = `${BASE_URL}/api`;
 
+export const LOGIN_API_URL = `${API_BASE_URL}/login`;
 export const TEST_API_URL = `${API_BASE_URL}/test`;
 export const NOTES_API_URL = `${API_BASE_URL}/notes`;
 
