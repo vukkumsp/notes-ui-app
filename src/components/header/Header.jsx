@@ -1,39 +1,36 @@
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { getCookie, setCookie } from '../../services/cookieManagement'
 import { getLoginToken } from '../../services/rest/authService';
 import { postNotes } from '../../services/rest/noteService';
 import './Header.css'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Header() {
   const [postResponse, setPostResponse] = useState(null);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation()
 
+  useEffect(() => {
+    const loginToken = getCookie("loginToken");
+    const guestToken = getCookie("guestToken");
+    if (loginToken !== null && loginToken !== "") {
+      console.log("Login Token from cookie: ", loginToken);
+      setUser("admin");
+    }
+    else if (guestToken !== null && guestToken !== "") {
+      console.log("Guest Token from cookie: ", guestToken);
+      setUser("guest");
+    }
 
-    const loginFn = () => {
-        const token = getCookie("loginToken");
-        if (token !== null && token !== "") {
-          console.log("Token from cookie: ", token);
-        } else {
-          console.log("No token found in cookies, fetching new login token...");
-          getLoginToken()
-            .then(response => {
-              console.log("Login Token: ", response);
-              setCookie("loginToken", response.token, response.duration-10);
-            })
-            .catch(error => console.error("Error fetching login token:", error));
-        }
-        //-------------------------------------------//
-        setTimeout(() => {
-          console.log("Fetching note with POST ...");
-              postNotes()
-          .then(response => {
-            setPostResponse(response);
-            console.log(response);
-          })
-          .catch(error => console.error(error));
-        }
-        , 1000);
-        };
+  },[]);
 
+  const logout = () => {
+    setCookie("loginToken", "", 0);
+    // setCookie("guestToken", "", 0);
+    setUser("guest");
+    // navigate('/login');
+  }
 
   return (
     <>
@@ -42,6 +39,7 @@ function Header() {
         <span className='subdomain'>//notes</span>
         <span className='domain'>.vukkumsp.com</span>
       </a>
+      <p>USER: {user?user:"N/A"}</p>
       <button className='token-refresh' 
         onClick={() => {
           setCookie("guestToken", "", 0)
@@ -49,9 +47,10 @@ function Header() {
           Refresh Token Cookies
       </button>
 
-      <button onClick={()=>loginFn()}>
-        Login & POST
-      </button>
+      {user !== "admin" && location.pathname !== '/login' &&
+        <button onClick={()=>navigate('/login')}>Login</button> }
+      {user === "admin" && 
+        <button onClick={()=>logout()}>Logout</button>  }
     </>
   )
 }

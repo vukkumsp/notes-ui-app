@@ -12,7 +12,7 @@ export async function getGuestToken() {
   return response.json();
 }
 
-export async function getLoginToken(){
+export async function getLoginToken(username, password) {
   const token = getCookie("guestToken");
   if (!token) {
     throw new Error('No guest token found');
@@ -25,8 +25,8 @@ export async function getLoginToken(){
     },
     credentials: 'include', // Include credentials if needed
     body: JSON.stringify({
-      username: 'admin',
-      password: 'admin'
+      username: username,
+      password: password
     })
   });
 
