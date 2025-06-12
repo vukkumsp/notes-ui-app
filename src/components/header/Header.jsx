@@ -43,12 +43,12 @@ function Header() {
         <span className='domain'>.vukkumsp.com</span>
       </a>
       <p>USER: {user?user:"N/A"}</p>
-      <button className='token-refresh' 
+      {/* <button className='token-refresh' 
         onClick={() => {
           setCookie("guestToken", "", 0)
         }}>
           Refresh Token Cookies
-      </button>
+      </button> */}
 
       {user !== "admin" && location.pathname !== '/login' &&
         <button onClick={()=>navigate('/login')}>Login</button> }
