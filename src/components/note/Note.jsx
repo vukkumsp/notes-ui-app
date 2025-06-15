@@ -2,11 +2,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './Note.css'
 import { useEffect, useRef, useState } from 'react';
 import { addOrUpdateNote, deleteNotes } from '../../services/rest/noteService';
+import { getCookie } from '../../services/cookieManagement';
 
 function Note({ key, note, mode= 'view' }) {
   // mode can be 'view' or 'edit' or 'add'
   const navigate = useNavigate();
   const location = useLocation();
+  const isAdmin = getCookie("loginToken") !== "" ? true : false; // Check if the user is loggedin
 
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(note.title);
@@ -55,7 +57,18 @@ function Note({ key, note, mode= 'view' }) {
   // {id, title, content, createdAt, updatedAt}
   return (
     <>
-      <fieldset key={key} className="note" ref={fieldsetRef}>
+      <fieldset key={key} className="note" ref={fieldsetRef}
+        style={{ 
+          display: 'block',
+          cursor: location.pathname === '/' ? 'pointer': 'default'
+        }}
+        onClick={() => {
+          if (location.pathname === '/') {
+            console.log("Navigating to note with id: ", note.id);
+            navigate('/notes/' + note.id);
+          }
+        }}>
+        {/* <div className="note-label" style={{display: 'block', cursor: 'pointer'}}> */}
 
         {!editMode &&
         <legend>{note.title}</legend> }
@@ -75,21 +88,26 @@ function Note({ key, note, mode= 'view' }) {
         {!editMode &&
         <p>{note.content}</p> }
 
-        { editMode &&   
+        { editMode && <br/> }
+
+        { editMode &&
         <textarea className="note-content" rows="10" cols="100" value={content} onChange={(e)=>setContent(e.target.value)} readOnly={!editMode}></textarea> }
 
-        <button className="note-button" onClick={() => {
-            deleteNote()
-          }}>Delete</button>
+        { editMode && <br/> }
 
-        {location.pathname !== '/notes/' + note.id &&
+        { isAdmin && location.pathname !== '/' &&
+          <button className="note-button" onClick={() => {
+            deleteNote()
+          }}>Delete</button>}
+
+        {/* {location.pathname !== '/notes/' + note.id &&
           <button className="note-button" onClick={() => {
             console.log("Navigating to note with id: ", note.id);
             navigate('/notes/' + note.id);
           }}>Select</button>
-        }
+        } */}
 
-        {!editMode &&
+        {!editMode && location.pathname !== '/' && isAdmin &&
           <button className="note-button" onClick={() => {
             console.log("Editing note with id: ", note.id);
             setEditMode(true);
@@ -108,7 +126,7 @@ function Note({ key, note, mode= 'view' }) {
           }>Cancel</button>
         }
 
-        {editMode && mode !== 'add' &&
+        {editMode && mode !== 'add' && isAdmin &&
           <button className="note-button" onClick={() => {
             console.log("Saving note with id: ", note.id);
             // Here you would typically save the note to the server
@@ -121,7 +139,7 @@ function Note({ key, note, mode= 'view' }) {
           }}>Save</button>
         }
 
-        {editMode && mode === 'add' &&
+        {editMode && mode === 'add' && isAdmin &&
           <button className="note-button" onClick={() => {
             console.log("Saving note with id: ", note.id);
             // Here you would typically save the note to the server
@@ -140,6 +158,7 @@ function Note({ key, note, mode= 'view' }) {
             navigate('/');
           }}>Home</button>
         }
+        {/* </div> */}
       </fieldset>
     </>
   )

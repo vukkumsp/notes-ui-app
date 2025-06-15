@@ -2,3 +2,18 @@
     margin-left: 1em;
     margin-right: 1em;
 }
+
+fieldset {
+    border: 1px solid rgba(255, 255, 255, 0.87);
+    border-radius: 8px;
+    padding: 1em;
+    margin-bottom: 1em;
+    /* transition: border-color 0.25s, padding 0.25s, margin-bottom 0.25s; */
+}
+
+fieldset:hover {
+    border: 1px solid #646cff;
+    border-radius: 8px;
+    padding: 1em;
+    margin-bottom: 1em;
+}
