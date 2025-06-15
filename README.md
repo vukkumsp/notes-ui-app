@@ -2,7 +2,7 @@
 
 [![NPM Build Deploy](https://github.com/vukkumsp/notes-ui-app/actions/workflows/ghpages-deploy.yml/badge.svg)](https://github.com/vukkumsp/notes-ui-app/actions/workflows/ghpages-deploy.yml)
 
-Deployed at: https://notes.vukkumsp.com/
+Deployed at: 
 
 ## React + Vite
 
