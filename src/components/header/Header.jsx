@@ -32,15 +32,15 @@ function Header() {
   const add = () => {
     console.log("Add button clicked");
     // Logic for adding a new note or user
-    navigate('/notes/add');
+    navigate('/notes-ui-app/notes/add');
   }
 
   return (
     <>
-      <a className='header' href='/' rel='noopener noreferrer'>
-        <span className='protocol'>https:</span>
+      <a className='header' href='/notes-ui-app/' rel='noopener noreferrer'>
+        {/* <span className='protocol'>https:</span> */}
         <span className='subdomain'>//notes</span>
-        <span className='domain'>.vukkumsp.com</span>
+        {/* <span className='domain'>.vukkumsp.com</span> */}
       </a>
       <p>USER: {user?user:"N/A"}</p>
       {/* <button className='token-refresh' 
@@ -50,8 +50,8 @@ function Header() {
           Refresh Token Cookies
       </button> */}
 
-      {user !== "admin" && location.pathname !== '/login' &&
-        <button onClick={()=>navigate('/login')}>Login</button> }
+      {user !== "admin" && location.pathname !== '/notes-ui-app/login' &&
+        <button onClick={()=>navigate('/notes-ui-app/login')}>Login</button> }
       {user === "admin" && 
         <button onClick={()=>logout()}>Logout</button>  }
       {user === "admin" && 
