@@ -27,9 +27,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomeView />} />
-        <Route path="/notes/:id" element={<NoteView />} />
-        <Route path="/login" element={<LoginView />} />
+        <Route path="/notes-ui-app/" element={<HomeView />} />
+        <Route path="/notes-ui-app/notes/:id" element={<NoteView />} />
+        <Route path="/notes-ui-app/login" element={<LoginView />} />
       </Routes>
     </>
   )

@@ -36,7 +36,7 @@ function HomeView() {
               <Note key={index} note={note} 
                 onClick={() => {
                   console.log("Navigating to note with id: ", note.id);
-                  navigate('/note/' + note.id);
+                  navigate('/notes-ui-app/note/' + note.id);
                 }}
               />
               

@@ -60,12 +60,12 @@ function Note({ key, note, mode= 'view' }) {
       <fieldset key={key} className="note" ref={fieldsetRef}
         style={{ 
           display: 'block',
-          cursor: location.pathname === '/' ? 'pointer': 'default'
+          cursor: location.pathname === '/notes-ui-app/' ? 'pointer': 'default'
         }}
         onClick={() => {
-          if (location.pathname === '/') {
+          if (location.pathname === '/notes-ui-app/') {
             console.log("Navigating to note with id: ", note.id);
-            navigate('/notes/' + note.id);
+            navigate('/notes-ui-app/notes/' + note.id);
           }
         }}>
         {/* <div className="note-label" style={{display: 'block', cursor: 'pointer'}}> */}
@@ -95,7 +95,7 @@ function Note({ key, note, mode= 'view' }) {
 
         { editMode && <br/> }
 
-        { isAdmin && location.pathname !== '/' &&
+        { isAdmin && location.pathname !== '/notes-ui-app/' &&
           <button className="note-button" onClick={() => {
             deleteNote()
           }}>Delete</button>}
@@ -107,7 +107,7 @@ function Note({ key, note, mode= 'view' }) {
           }}>Select</button>
         } */}
 
-        {!editMode && location.pathname !== '/' && isAdmin &&
+        {!editMode && location.pathname !== '/notes-ui-app/' && isAdmin &&
           <button className="note-button" onClick={() => {
             console.log("Editing note with id: ", note.id);
             setEditMode(true);
@@ -152,10 +152,10 @@ function Note({ key, note, mode= 'view' }) {
           }}>Add</button>
         }
 
-        {location.pathname !== '/' &&
+        {location.pathname !== '/notes-ui-app/' &&
           <button className="back-button" onClick={() => {
             console.log("Navigating to back to notes list");
-            navigate('/');
+            navigate('/notes-ui-app/');
           }}>Home</button>
         }
         {/* </div> */}
