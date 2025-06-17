@@ -17,25 +17,4 @@ export class BodyComponent {
     // Initialization logic can go here
   }
 
-  login(){
-    this.authService.login('admin', 'admin')
-        .pipe(
-          switchMap(response => {
-            console.log('Login successful:', response);
-            // Assuming the response contains a token, store it
-            this.authService.storage.setItem('authToken', response.token);
-            return this.notesService.getNotes(); // Fetch notes after login  
-          })
-        ).subscribe({
-        next: (data) => {
-          console.log('Notes:', data);
-        },
-        error: (error) => {
-          console.error('Error fetching notes:', error);
-        }
-      });
-  }
-
-  
-
 }

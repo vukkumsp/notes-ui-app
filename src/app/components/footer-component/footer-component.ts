@@ -8,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  get currentYear(): number {
+    return new Date().getFullYear();
+  }
+  get appVersion(): string {
+    return '1.0.0'; // Replace with your actual app version
+  }
+  get appName(): string {
+    return 'Notes App'; // Replace with your actual app name
+  }
 }
