@@ -1,0 +1,14 @@
+<div>
+
+    @if(notes.length > 0) {
+        @for (note of notes; track $index) {
+            <app-note-component 
+                [title]="note.title" 
+                [content]="note.content" 
+                [createdAt]="note.createdAt"
+                [updatedAt]="note.updatedAt" 
+                [id]="note.id" />
+        }
+    }
+
+</div>

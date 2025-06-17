@@ -1,0 +1,14 @@
+<div class="card m-3 shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">{{ title }}</h5>
+        <p class="card-text">{{ content }}</p>
+
+        @if(createdAt < updatedAt) { 
+            <small class="text-muted">Created on {{ createdAt | date:'short' }}</small>
+            <small class="text-muted">Last updated {{ updatedAt | date:'short' }}</small>
+        }
+        @else {
+            <small class="text-muted">Created on {{ createdAt | date:'short' }}</small>
+        }
+    </div>
+</div>
