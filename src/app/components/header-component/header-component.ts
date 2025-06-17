@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/authService/auth-service';
 import { NotesService } from '../../services/notesService/notes-service';
 import { switchMap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-component',
@@ -9,15 +10,22 @@ import { switchMap } from 'rxjs';
   templateUrl: './header-component.html',
   styleUrl: './header-component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
-    constructor(private authService: AuthService, private notesService: NotesService) {
+  isLoggedIn: boolean = false;
+
+    constructor(private authService: AuthService, private notesService: NotesService, private router: Router) {
       // Initialization logic can go here
     }
+  ngOnInit(): void {
+    this.isLoggedIn = this.authService.isAuthenticated();
+  }
 
-    login(){
-      this.authService.login('admin', 'admin');
-    }
+    goToLogin() {
+  this.router.navigate(['/login']);
+}
+
+
   
     getNotes() {
       this.notesService.getNotes().subscribe({
