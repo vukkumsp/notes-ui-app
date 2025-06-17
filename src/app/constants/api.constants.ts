@@ -1,7 +1,10 @@
 import { environment } from "../environment";
 
-const BASE_URL =  environment.notesBaseUrl;
-const USER_MGMT_URL = environment.userMgmtUrl;
+// const BASE_URL =  environment.notesBaseUrl;
+// const USER_MGMT_URL = environment.userMgmtUrl;
+
+const BASE_URL =  "https://notes-service-iwwy.onrender.com";
+const USER_MGMT_URL = "https://usermanagement-cq2a.onrender.com";
 
 export const API_URLS = {
     AUTH: {
