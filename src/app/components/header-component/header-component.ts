@@ -16,22 +16,7 @@ export class HeaderComponent {
     }
 
     login(){
-      this.authService.login('admin', 'admin')
-          .pipe(
-            switchMap(response => {
-              console.log('Login successful:', response);
-              // Assuming the response contains a token, store it
-              this.authService.storage.setItem('authToken', response.token);
-              return this.notesService.getNotes(); // Fetch notes after login  
-            })
-          ).subscribe({
-          next: (data) => {
-            console.log('Notes:', data);
-          },
-          error: (error) => {
-            console.error('Error fetching notes:', error);
-          }
-        });
+      this.authService.login('admin', 'admin');
     }
   
     getNotes() {
@@ -43,5 +28,9 @@ export class HeaderComponent {
           console.error('Error fetching notes:', error);
         }
       });
+    }
+
+    logout(){
+      this.authService.logout();
     }
 }

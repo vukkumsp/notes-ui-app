@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class AllNotesView implements OnInit {
 
   notes: any[] = [];
+  message: string = '';
 
   constructor(private authService: AuthService, private notesService: NotesService, private cdr: ChangeDetectorRef) {
     // Initialization logic can go here
@@ -26,12 +27,17 @@ export class AllNotesView implements OnInit {
         next: (data: any) => {
           console.log(' Notes fetched:', data);
           this.notes = data; // Assuming data is an array of notes
+          this.message = '';
           this.cdr.markForCheck();
         },
         error: (error) => {
           console.error('Error fetching notes:', error);
         }
       });
+    }
+    else {
+      this.message = "Please login to view all notes.";
+      this.cdr.markForCheck();
     }
   }
 }

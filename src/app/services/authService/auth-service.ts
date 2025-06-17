@@ -19,22 +19,35 @@ export class AuthService {
     return !!token; // Returns true if token exists, false otherwise
   }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(API_URLS.AUTH.LOGIN, { username, password, appName:'notes-service' });
+  login(username: string, password: string) {
+    this.http.post(API_URLS.AUTH.LOGIN, { username, password, appName:'notes-service' })
+      .subscribe({
+        next: (response: any) => {
+          console.log('Login successful:', response);
+          // Store the token in session storage or local storage
+          this.storeToken(response.token); // Assuming the response contains a token
+        }
+        , error: (error) => {
+          console.error('Login failed:', error);
+          // Handle login error
+          throw error; // Re-throw the error for further handling if needed
+        }
+      });
   }
 
   logout(): void {
-    this.http.post(API_URLS.AUTH.LOGOUT, {}).subscribe({
-      next: () => {
-        // Handle successful logout
-        console.log('Logout successful');
-        this.storage.removeItem('authToken'); // Remove token from storage
-      },
-      error: (error) => {
-        // Handle logout error
-        console.error('Logout failed:', error);
-      }
-    });
+    this.storage.removeItem('authToken');
+    // this.http.post(API_URLS.AUTH.LOGOUT, {}).subscribe({
+    //   next: () => {
+    //     // Handle successful logout
+    //     console.log('Logout successful');
+    //     this.storage.removeItem('authToken'); // Remove token from storage
+    //   },
+    //   error: (error) => {
+    //     // Handle logout error
+    //     console.error('Logout failed:', error);
+    //   }
+    // });
   }
   private storeToken(token: string): void {
     // Store the token in session storage or local storage
