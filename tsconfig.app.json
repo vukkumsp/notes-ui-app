@@ -8,7 +8,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/app/constants/api.constants"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]
